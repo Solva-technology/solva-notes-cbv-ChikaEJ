@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %} {% if form.instance.pk %}Обновить заметку{% else %}Добавить заметку{% endif %} {% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">
+    {% if note %}Редактировать запись{% else %}Создать запись{% endif %}
+</h2>
+
+<form method="post" class="p-3 border rounded bg-light shadow-sm">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">
+        {% if note %}Сохранить{% else %}Создать{% endif %}
+    </button>
+</form>
+
+{% endblock %}
