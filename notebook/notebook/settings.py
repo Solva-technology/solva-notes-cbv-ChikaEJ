@@ -9,7 +9,6 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 SECRET_KEY = secret_key_validator()
 
 DEBUG = os.getenv('DJANGO_DEBUG', False)
@@ -58,7 +57,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'notebook.wsgi.application'
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -69,7 +67,6 @@ DATABASES = {
         'PORT': os.getenv('POSTGRES_PORT'),
     }
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -119,3 +116,7 @@ AUTH_USER_MODEL = 'user.User'
 LOGIN_REDIRECT_URL = '/'
 
 LOGOUT_REDIRECT_URL = '/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
