@@ -1,0 +1,31 @@
+<header class="p-3 bg-dark text-white">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                    <use xlink:href="#bootstrap"></use>
+                </svg>
+            </a>
+
+            {% include 'partials/navbar.html' %}
+
+            <div class="text-end ms-auto">
+                {% if user.is_authenticated %}
+                    <span class="me-3">
+            👋 Мистер {{ user.first_name|default:user.username }}
+          </span>
+                    {% if user.is_superuser %}
+                        <a class="btn btn-primary me-2" href="{% url 'admin:index' %}">Панель администратора</a>
+                    {% endif %}
+                    <form method="post" action="{% url 'logout' %}" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Выйти</button>
+                    </form>
+                {% else %}
+                    <a class="btn btn-info me-2" href="{% url 'users:register' %}">Регистрация</a>
+                    <a class="btn btn-success" href="{% url 'login' %}">Войти</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</header>

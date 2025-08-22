@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Профиль пользователя</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Имя пользователя:</strong> {{ user_profile.user.first_name }}</p>
+                    <p><strong>Фамилия пользователя:</strong> {{ user_profile.user.last_name }}</p>
+                    <p><strong>Email:</strong> {{ user_profile.user.email }}</p>
+
+                    {% if user_profile.bio %}
+                        <p><strong>Биография:</strong> {{ user_profile.bio }}</p>
+                    {% else %}
+                        <p class="text-muted">Биография не указана</p>
+                    {% endif %}
+
+                    {% if user_profile.birth_date %}
+                        <p><strong>Дата рождения:</strong> {{ user_profile.birth_date|date:"d.m.Y" }}</p>
+                    {% else %}
+                        <p class="text-muted">Дата рождения не указана</p>
+                    {% endif %}
+                </div>
+                <div class="card-footer text-end">
+                    <a href="{% url 'users:all_users' %}" class="btn btn-secondary">Назад к списку</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

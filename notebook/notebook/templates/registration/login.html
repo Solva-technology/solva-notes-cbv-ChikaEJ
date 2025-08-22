@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="col-md-4">
+    <div class="card shadow-sm rounded-4">
+      <div class="card-body">
+        <h3 class="text-center mb-4">Вход</h3>
+        <form method="post">
+          {% csrf_token %}
+
+          <div class="mb-3">
+            <label for="id_username" class="form-label">Имя пользователя</label>
+            <input type="text" name="username" autofocus required id="id_username"
+                   class="form-control {% if form.username.errors %}is-invalid{% endif %}"
+                   value="{{ form.username.value|default:'' }}">
+            {% for error in form.username.errors %}
+              <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+          </div>
+
+          <div class="mb-3">
+            <label for="id_password" class="form-label">Пароль</label>
+            <input type="password" name="password" required id="id_password"
+                   class="form-control {% if form.password.errors %}is-invalid{% endif %}">
+            {% for error in form.password.errors %}
+              <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100 mb-3">Войти</button>
+        </form>
+
+        <div class="text-center">
+          <a href="{% url 'password_reset' %}" class="text-decoration-none">
+            <small>Забыли пароль?</small>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
