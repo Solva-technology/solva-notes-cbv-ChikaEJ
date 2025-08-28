@@ -120,3 +120,11 @@ LOGOUT_REDIRECT_URL = '/'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
+
+print(
+    f"dbname={os.getenv('POSTGRES_DB')} "
+    f"user={os.getenv('POSTGRES_USER')} "
+    f"password={os.getenv('POSTGRES_PASSWORD')} "
+    f"host={os.getenv('POSTGRES_HOST')} "
+    f"port={os.getenv('POSTGRES_PORT')}"
+)
