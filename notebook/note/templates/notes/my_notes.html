@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Мои заметки{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="text-center mb-4">Мои заметки</h2>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="alert alert-info" role="alert">
+                У вас: {{ notes|length }} замет{{ notes|length|pluralize:"ка,ки,ок" }}
+            </div>
+            {% for note in notes %}
+            <div class="card mb-3 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ note.text|truncatechars:100 }}</h5>
+                    <p class="card-text">
+                        <small class="text-muted">
+                            Автор: <span class="fw-bold">{{ note.author.username }}</span> |
+                            Категории:
+                            {% for category in note.categories.all %}
+                                <span class="fw-bold">{{ category.title }}</span>{% if not forloop.last %}, {% endif %}
+                            {% empty %}
+                                нет категорий
+                            {% endfor %} |
+                            Статус: <span class="fw-bold">{{ note.status.name }}</span> |
+                            {% if note.status.is_final %}
+                                <span class="fw-bold text-success">Завершен</span>
+                            {% else %}
+                                <span class="fw-bold text-warning">Не завершен</span>
+                            {% endif %} |
+                            Дата: <span class="fw-bold">{{ note.created_at|date:"d.m.Y H:i" }}</span>
+                        </small>
+                    </p>
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <a href="{% url 'notes:note_detail' note.id %}" class="btn btn-primary btn-sm">Подробнее</a>
+                        {% if note.author == user or user.is_superuser %}
+                            <a href="{% url 'notes:note_update' note.id %}" class="btn btn-sm btn-outline-primary">
+                                ✏️ Редактировать
+                            </a>
+                            <form method="post" action="{% url 'notes:note_delete' note.id %}"
+                                  onsubmit="return confirm('Вы уверены, что хотите удалить эту заметку?');" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center text-muted">Заметок нет</p>
+            {% endfor %}
+
+            <div class="text-center mt-3">
+                <a href="{% url 'notes:note_new' %}" class="btn btn-primary">Добавить заметку</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

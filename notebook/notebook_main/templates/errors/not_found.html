@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Заметка не найдена{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center">
+        <h1 class="display-4 text-danger fw-bold">404</h1>
+        <h2 class="mb-4">Страница не найдена</h2>
+        <p class="lead text-muted">Возможно, она была удалена или никогда не существовала.</p>
+        <a href="{% url 'notes' %}" class="btn btn-outline-primary mt-3">← Вернуться ко всем заметкам</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,7 @@
+Django
+psycopg2-binary
+python-dotenv
+pytest-django
+pytest-lazy-fixtures
+
+pytest

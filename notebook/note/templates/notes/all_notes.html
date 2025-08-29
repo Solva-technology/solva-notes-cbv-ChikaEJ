@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Все заметки{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="text-center mb-4">Все заметки</h2>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            {% for note in notes %}
+            <div class="card mb-3 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ note.text|truncatechars:100 }}</h5>
+                    <p class="card-text">
+                        <small class="text-muted">
+                            Автор: <span style="font-weight: bold">{{ note.author.username }}</span> |
+                            Категории:
+                            {% for category in note.categories.all %}
+                                <span style="font-weight: bold">{{ category.title }}</span>{% if not forloop.last %}, {% endif %}
+                            {% empty %}
+                                нет категорий
+                            {% endfor %} |
+                            Статус: <span style="font-weight: bold">{{ note.status.name }}</span> |
+                            {% if note.status.is_final %}
+                                <span style="font-weight: bold">Завершен</span>
+                            {% else %}
+                                <span style="font-weight: bold">Не завершен</span>
+                            {% endif %} |
+                            Дата: <span style="font-weight: bold">{{ note.created_at|date:"d.m.Y H:i" }}</span>
+                        </small>
+                    </p>
+                    <div class="text-end">
+                        <a href="{% url 'notes:note_detail' note.id %}" class="btn btn-primary btn-sm">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center text-muted">Заметок нет</p>
+            {% endfor %}
+            <a href="{% url 'notes:note_new' %}" class="btn btn-primary">Добавить заметку</a>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

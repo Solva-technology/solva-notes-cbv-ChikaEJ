@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Удалить заметку{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg border-0 rounded-3">
+        <div class="card-body text-center">
+            <h2 class="card-title text-danger mb-4">Удаление заметки</h2>
+
+            <p class="fs-5 mb-4">
+                Вы действительно хотите удалить заметку <strong>#{{ note.id }}</strong>?
+            </p>
+
+            <div class="alert alert-warning" role="alert">
+                ⚠️ Это действие нельзя отменить!
+            </div>
+
+            <p class="mb-4 text-muted">
+                "{{ note.text|truncatechars:100 }}"
+            </p>
+
+            <form method="post" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger me-2">
+                    ✅ Да, удалить
+                </button>
+            </form>
+            <a href="{% url 'notes:note_detail' note.id %}" class="btn btn-secondary">
+                ❌ Отмена
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
