@@ -1,5 +1,4 @@
 from django.db import models
-
 from user.models import User
 
 
@@ -28,12 +27,13 @@ class Category(models.Model):
 
 
 class Note(models.Model):
-    text = models.TextField(verbose_name='Текст')
+    text = models.TextField(verbose_name='Текст', blank=False, null=True)
     created_at = models.DateTimeField(
         verbose_name='Дата создания',
         auto_now_add=True
     )
     author = models.ForeignKey(
+        blank=False,
         verbose_name='Автор',
         to=User,
         on_delete=models.CASCADE

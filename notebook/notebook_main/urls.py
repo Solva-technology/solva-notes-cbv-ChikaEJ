@@ -6,7 +6,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', RedirectView.as_view(
-        pattern_name='notes:notes',
+        pattern_name='notes:notes_list',
         permanent=False)
          ),
     path('notes/', include('note.urls')),

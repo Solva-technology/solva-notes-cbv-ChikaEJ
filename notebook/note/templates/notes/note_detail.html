@@ -47,17 +47,17 @@
 
             <div class="d-flex gap-2 mt-4">
                 {% if note.author == user or user.is_superuser or user.is_staff %}
-                <a href="{% url 'notes:update_note' pk=note.id %}"
+                <a href="{% url 'notes:note_update' pk=note.id %}"
                    class="btn btn-sm btn-outline-primary">
                     ✏️ Редактировать
                 </a>
-                <form method="post" action="{% url 'notes:delete_note' pk=note.id %}"
+                <form method="post" action="{% url 'notes:note_delete' pk=note.id %}"
                     onsubmit="return confirm('Вы уверены, что хотите удалить эту заметку?');">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
                 </form>
                 {% endif %}
-                <a href="{% url 'notes:notes' %}"
+                <a href="{% url 'notes:notes_list' %}"
                    class="btn btn-sm btn-outline-secondary">
                     ← Назад ко всем заметкам
                 </a>

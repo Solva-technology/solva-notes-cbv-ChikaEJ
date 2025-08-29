@@ -9,7 +9,9 @@
 
     <div class="row justify-content-center">
         <div class="col-md-8">
-
+            <div class="alert alert-info" role="alert">
+                У вас: {{ notes|length }} замет{{ notes|length|pluralize:"ка,ки,ок" }}
+            </div>
             {% for note in notes %}
             <div class="card mb-3 shadow-sm">
                 <div class="card-body">
@@ -36,10 +38,10 @@
                     <div class="d-flex justify-content-end gap-2">
                         <a href="{% url 'notes:note_detail' note.id %}" class="btn btn-primary btn-sm">Подробнее</a>
                         {% if note.author == user or user.is_superuser %}
-                            <a href="{% url 'notes:update_note' note.id %}" class="btn btn-sm btn-outline-primary">
+                            <a href="{% url 'notes:note_update' note.id %}" class="btn btn-sm btn-outline-primary">
                                 ✏️ Редактировать
                             </a>
-                            <form method="post" action="{% url 'notes:delete_note' note.id %}"
+                            <form method="post" action="{% url 'notes:note_delete' note.id %}"
                                   onsubmit="return confirm('Вы уверены, что хотите удалить эту заметку?');" class="d-inline">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
@@ -53,7 +55,7 @@
             {% endfor %}
 
             <div class="text-center mt-3">
-                <a href="{% url 'notes:new_note' %}" class="btn btn-primary">Добавить заметку</a>
+                <a href="{% url 'notes:note_new' %}" class="btn btn-primary">Добавить заметку</a>
             </div>
 
         </div>

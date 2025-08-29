@@ -73,4 +73,5 @@ class NoteUpdateView(NoteMixin, CheckPermissionMixin, UpdateView):
 
 
 class NoteDeleteView(NoteMixin, CheckPermissionMixin, DeleteView):
+    template_name = 'notes/note_confirm_delete.html'
     success_url = reverse_lazy('notes:my_notes')

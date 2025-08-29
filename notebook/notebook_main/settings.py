@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 
+from django.urls import reverse_lazy
 from dotenv import load_dotenv
 
 from .utilities import secret_key_validator
@@ -38,12 +39,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'notebook.urls'
+ROOT_URLCONF = 'notebook_main.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'notebook/templates'],
+        'DIRS': [BASE_DIR / 'notebook_main/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -55,7 +56,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'notebook.wsgi.application'
+WSGI_APPLICATION = 'notebook_main.wsgi.application'
 
 DATABASES = {
     'default': {
@@ -113,18 +114,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'user.User'
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = reverse_lazy('notes:my_notes')
 
 LOGOUT_REDIRECT_URL = '/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
-
-print(
-    f"dbname={os.getenv('POSTGRES_DB')} "
-    f"user={os.getenv('POSTGRES_USER')} "
-    f"password={os.getenv('POSTGRES_PASSWORD')} "
-    f"host={os.getenv('POSTGRES_HOST')} "
-    f"port={os.getenv('POSTGRES_PORT')}"
-)

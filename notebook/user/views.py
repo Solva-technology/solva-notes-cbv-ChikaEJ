@@ -31,7 +31,7 @@ class UserProfileDetailView(UserMixin, DetailView):
 class UserRegistrationView(CreateView):
     form_class = RegisterForm
     template_name = 'users/register.html'
-    success_url = '/'
+    success_url = 'notes:my_notes'
 
     def form_valid(self, form):
         user = form.save(commit=False)
